@@ -37,3 +37,5 @@ python app.py
 ```
 
 Distributed under the MIT license. Claude is a trademark of its respective owner.
+
+The interface bundles Source Han Serif and JetBrains Mono under the SIL Open Font License; the respective license texts are in `web/fonts/`. Georgia is used when installed on the viewer's system and is not redistributed by this project.

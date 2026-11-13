@@ -31,11 +31,12 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(code)
         self.send_header('Content-Type', content_type)
         self.send_header('Content-Length', str(len(data)))
-        self.send_header('Cache-Control', 'no-store')
+        self.send_header('Cache-Control', (extra or {}).get('Cache-Control', 'no-store'))
         self.send_header('X-Content-Type-Options', 'nosniff')
         self.send_header('Referrer-Policy', 'no-referrer')
         self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'")
-        for k,v in (extra or {}).items(): self.send_header(k,v)
+        for k,v in (extra or {}).items():
+            if k.lower() != 'cache-control': self.send_header(k,v)
         self.end_headers()
         try: self.wfile.write(data)
         except (BrokenPipeError, ConnectionResetError): pass
@@ -47,14 +48,19 @@ class Handler(BaseHTTPRequestHandler):
                 hmac.compare_digest(self.headers.get('X-Session-Token',''),TOKEN))
     def do_GET(self):
         path=urlsplit(self.path).path
-        names={'/':'index.html', '/app.js':'app.js', '/style.css':'style.css'}
+        names={'/':'index.html', '/app.js':'app.js', '/style.css':'style.css',
+               '/fonts/source-han-serif-cn-vf.woff2':'fonts/source-han-serif-cn-vf.woff2',
+               '/fonts/jetbrains-mono-vf.woff2':'fonts/jetbrains-mono-vf.woff2'}
         if path not in names:
             self._json(404,{'error':'页面不存在。'});return
         item=WEB / names[path]
         if not item.is_file():
             self._json(404,{'error':'界面文件缺失。'});return
         mime=mimetypes.guess_type(str(item))[0] or 'application/octet-stream'
-        self._respond(200,item.read_bytes(),mime+'; charset=utf-8')
+        if path.startswith('/fonts/'):
+            self._respond(200,item.read_bytes(),'font/woff2',{'Cache-Control':'public, max-age=86400'})
+        else:
+            self._respond(200,item.read_bytes(),mime+'; charset=utf-8')
     def do_POST(self):
         try:
             if not self._authorized():

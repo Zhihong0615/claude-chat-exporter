@@ -51,3 +51,5 @@ python app.py
 ## 许可与安全
 
 本项目使用 MIT 许可证，与 Anthropic 无隶属关系。Claude 是其各自所有者的商标。本地服务的防护针对本机使用，**不能直接暴露到公网**。单独的公网后端及示例反向代理配置见 `deploy/README.md`，在线转换会把文件上传到服务器；下载的文件包含私人数据，请妥善保存。
+
+界面附带的思源宋体（Source Han Serif）和 JetBrains Mono 使用 SIL 开放字体许可证，许可文件位于 `web/fonts/`。Georgia 使用访问设备上已安装的字体，本项目不分发该字体。

@@ -38,6 +38,14 @@ class HttpTests(unittest.TestCase):
         self.assertIn("frame-ancestors 'none'", headers['Content-Security-Policy'])
         self.assertEqual(self.request('GET', '/../../app.py')[0], 404)
 
+    def test_bundled_fonts_are_available_offline(self):
+        for filename in ('source-han-serif-cn-vf.woff2', 'jetbrains-mono-vf.woff2'):
+            code, headers, body = self.request('GET', '/fonts/' + filename)
+            self.assertEqual(code, 200)
+            self.assertEqual(headers['Content-Type'], 'font/woff2')
+            self.assertIn('max-age=', headers['Cache-Control'])
+            self.assertTrue(body.startswith(b'wOF2'))
+
     def test_origin_and_token_required(self):
         good = {'Origin': self.origin, 'X-Session-Token': app.TOKEN}
         self.assertEqual(self.request('POST', '/api/inspect', SAMPLE, {})[0], 403)
