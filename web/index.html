@@ -6,7 +6,7 @@
 </head>
 <body>
   <div class="app">
-    <header><div><div class="eyebrow">LOCAL EXPORTER</div><h1 data-i18n="title">Claude Chat Exporter</h1><p data-i18n="subtitle">Turn your official export into readable documents.</p></div><div class="header-actions"><label class="language"><span class="sr-only" data-i18n="language">Language</span><select id="language"><option value="en">English</option><option value="zh">简体中文</option></select></label><div class="privacy"><span></span> <span data-i18n="local">Processed locally</span></div></div></header>
+    <header><div><div class="eyebrow" data-i18n="eyebrow">LOCAL EXPORTER</div><h1 data-i18n="title">Claude Chat Exporter</h1><p data-i18n="subtitle">Turn your official export into readable documents.</p></div><div class="header-actions"><label class="language"><span class="sr-only" data-i18n="language">Language</span><select id="language"><option value="en">English</option><option value="zh">简体中文</option></select></label><div class="privacy"><span></span> <span data-i18n="local">Processed locally</span></div></div></header>
     <main>
       <section class="panel upload"><div class="section-head"><div><div class="step">01</div><h2 data-i18n="choose">Choose an export</h2></div><p data-i18n="support">Chat ZIP or conversations.json</p></div>
         <label class="drop" id="drop"><input id="file" type="file" accept=".zip,.json,application/zip,application/json"><span class="upload-icon">↑</span><strong data-i18n="drop">Click to choose a file, or drop it here</strong><span id="filename">Processed on this device · 200 MB max</span></label>
@@ -22,6 +22,6 @@
         <div id="export-status" class="status" role="status" aria-live="polite"></div>
       </section>
     </main>
-    <footer><span data-i18n="footer">No sign-in · No chat uploads · Original file unchanged</span><button id="stop" type="button" data-i18n="stop">Stop local service</button></footer>
+    <footer><a id="source-link" href="/source/" hidden>Source code / 源码</a><span data-i18n="footer">No sign-in · No chat uploads · Original file unchanged</span><button id="stop" type="button" data-i18n="stop">Stop local service</button></footer>
   </div><script src="/app.js"></script>
 </body></html>

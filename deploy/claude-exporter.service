@@ -1,0 +1,28 @@
+[Unit]
+Description=Claude Chat Exporter public backend
+After=network.target
+
+[Service]
+Type=simple
+DynamicUser=yes
+WorkingDirectory=/opt/claude-exporter/app
+Environment=CLAUDE_EXPORTER_PUBLIC_ORIGIN=https://claudeexport.com
+Environment=CLAUDE_EXPORTER_PUBLIC_PORT=18760
+ExecStart=/opt/claude-exporter/venv/bin/python /opt/claude-exporter/app/public_app.py
+Restart=on-failure
+RestartSec=5
+MemoryMax=768M
+CPUQuota=100%
+TasksMax=24
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+SystemCallArchitectures=native
+RestrictAddressFamilies=AF_UNIX AF_INET
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

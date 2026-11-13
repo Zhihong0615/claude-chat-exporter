@@ -41,6 +41,10 @@ class Handler(BaseHTTPRequestHandler):
         except (BrokenPipeError, ConnectionResetError): pass
     def _json(self, code, obj):
         self._respond(code, json.dumps(obj,ensure_ascii=False).encode('utf-8'), 'application/json; charset=utf-8')
+    def _authorized(self):
+        permitted=f'http://127.0.0.1:{self.server.server_port}'
+        return (self.headers.get('Origin','') == permitted and
+                hmac.compare_digest(self.headers.get('X-Session-Token',''),TOKEN))
     def do_GET(self):
         path=urlsplit(self.path).path
         names={'/':'index.html', '/app.js':'app.js', '/style.css':'style.css'}
@@ -53,9 +57,7 @@ class Handler(BaseHTTPRequestHandler):
         self._respond(200,item.read_bytes(),mime+'; charset=utf-8')
     def do_POST(self):
         try:
-            origin=self.headers.get('Origin','')
-            permitted=f'http://127.0.0.1:{self.server.server_port}'
-            if origin != permitted or not hmac.compare_digest(self.headers.get('X-Session-Token',''),TOKEN):
+            if not self._authorized():
                 self._json(403,{'error':'无效的本地会话，请重新打开软件。'});return
             path=urlsplit(self.path).path
             if path=='/api/shutdown':
@@ -64,7 +66,7 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(404,{'error':'接口不存在。'});return
             try:n=int(self.headers.get('Content-Length','0'))
             except ValueError: raise ExportError('无法读取文件大小。')
-            if n<=0 or n>MAX_INPUT: raise ExportError('文件为空或超过 200 MB 限制。')
+            if n<=0 or n>MAX_INPUT: raise ExportError(f'文件为空或超过 {MAX_INPUT // (1024 * 1024)} MB 限制。')
             payload=self.rfile.read(n)
             if len(payload)!=n: raise ExportError('文件传输不完整。')
             chats=load_export(payload)

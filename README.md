@@ -22,7 +22,7 @@ Only content actually present in the input can be converted, including any Memor
 
 ## Privacy and security
 
-The application binds to a random port on `127.0.0.1`, checks the local session token and request origin, and does not intentionally send chat data to external services. Your browser sends the selected file to the application running on the same machine. The input file is not modified. Installation of dependencies and building packages require network access. **Do not expose this local server to the public internet:** its local session protection is not a public hosting security model. Downloaded documents contain private data; store them accordingly.
+The application binds to a random port on `127.0.0.1`, checks the local session token and request origin, and does not intentionally send chat data to external services. Your browser sends the selected file to the application running on the same machine. The input file is not modified. Installation of dependencies and building packages require network access. **Do not expose the local server to the public internet.** A separate, limited public backend and example reverse proxy configuration are documented in [deploy/README.md](deploy/README.md); online conversion uploads files to the server. Downloaded documents contain private data; store them accordingly.
 
 ## Package for a target platform
 
