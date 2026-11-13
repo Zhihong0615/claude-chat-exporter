@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 DynamicUser=yes
 WorkingDirectory=/opt/claude-exporter/app
-Environment=CLAUDE_EXPORTER_PUBLIC_ORIGIN=https://claudeexport.com
+Environment=CLAUDE_EXPORTER_PUBLIC_ORIGIN=https://claudeexport.duckdns.org
 Environment=CLAUDE_EXPORTER_PUBLIC_PORT=18760
 ExecStart=/opt/claude-exporter/venv/bin/python /opt/claude-exporter/app/public_app.py
 Restart=on-failure
