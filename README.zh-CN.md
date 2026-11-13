@@ -1,4 +1,11 @@
-# Claude 聊天导出工具
+<p align="center"><img src="docs/assets/claude.svg" width="84" alt="Claude 图标"></p>
+
+<h1 align="center">Claude 聊天导出工具</h1>
+
+<p align="center"><strong>给 Claude 的聊天记录挖个坟，把对话和记忆好好接回来。🪦📜</strong><br>
+不用带铲子，带上你的导出包就行。</p>
+
+<p align="center"><a href="https://claudeexport.duckdns.org/">在线使用</a> · <a href="README.md">English</a></p>
 
 **在线使用：**[claudeexport.duckdns.org](https://claudeexport.duckdns.org/) —— 文件会上传到服务器进行转换，最大 20 MB。如需仅在本机处理，请按照下方说明运行源码。
 
@@ -21,14 +28,14 @@
 1. 从 Claude 官方导出文件中选择聊天或 Memory 的 ZIP 或 JSON。也支持包含这些 ZIP 的外层 ZIP；每个 Memory 文件作为独立条目选择。
 2. 选择需要导出的会话。列表只显示有可转换内容的会话，并显示已跳过的空记录数量。
 3. 选择 Markdown 或 PDF。单个会话直接下载为文档；多个会话下载为 ZIP，每个会话一份文档。
-4. 默认保留导出中实际存在的工具调用、结果、思考文本、附加提示和附件/文件元数据；也可以取消“包含工具调用等内容”。未知类型会作为结构化文本保留。
+4. 默认生成便于阅读的正文版本。勾选“包含思考过程、工具调用及附件信息”可查看技术细节及附件元数据，未知类型会作为结构化文本保留。
 
 如果选择的是不包含聊天数据的其他导出包，软件会提示重新选择。输入文件最多 200 MB，聊天数据解压合计最多 300 MB。
 
 ## 数据范围
 
 - 本工具只转换**输入文件里已有的内容**。没有可转换内容的消息与会话默认跳过，界面显示跳过数量；无法恢复未导出的正文。
-- 附件或文件条目会以元数据形式保留；本版本不会从账号、外部链接或本机其他目录自动下载或恢复附件原文件。
+- 开启详细内容时，附件或文件条目会以元数据形式保留；本版本不会从账号、外部链接或本机其他目录自动下载或恢复附件原文件。
 - PDF 为可搜索文本，支持中文；复杂 Markdown 排版、公式、表情及图片可能与原界面不完全相同。Markdown 保留正文原有文本，通常更适合后续整理。
 - 时间直接保留导出文件中的原始字符串，不做地区或时区换算。
 - 程序绑定 `127.0.0.1` 的随机端口，转换完成后将文件通过浏览器下载。不会修改输入压缩包，也不会主动上传聊天。
@@ -56,7 +63,8 @@ python app.py
 
 界面附带的思源宋体（Source Han Serif）和 JetBrains Mono 使用 SIL 开放字体许可证，许可文件位于 `web/fonts/`。Georgia 使用访问设备上已安装的字体，本项目不分发该字体。
 
-
-默认生成便于阅读的正文版本，并保留导出包中的 Memory。没有正文的消息和会话会在界面中计数并跳过；勾选详细内容后可包含思考过程、工具调用和附件元数据。短消息不会因为长度被删除；无法识别的正文差异会保留并标注。PDF 支持常见标题、列表、表格和代码块，不会从网络加载图片；公式、表情和复杂排版可能有所差异。
+短消息不会因为长度被删除；无法识别的正文差异会保留并标注。PDF 支持常见标题、列表、表格和代码块，不会从网络加载图片。
 
 PDF 内嵌 Noto Serif SC 字体，按 SIL Open Font License 分发，许可见 `pdf_fonts/OFL.txt`。
+
+Claude 图标取自 [Simple Icons](https://github.com/simple-icons/simple-icons/blob/develop/icons/claude.svg)，许可及商标说明见其[免责声明](https://github.com/simple-icons/simple-icons/blob/develop/DISCLAIMER.md)。

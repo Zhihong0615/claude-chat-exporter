@@ -1,10 +1,16 @@
-# Claude Chat Exporter
+<p align="center"><img src="docs/assets/claude.svg" width="84" alt="Claude icon"></p>
 
-[简体中文](README.zh-CN.md)
+<h1 align="center">Claude Chat Exporter</h1>
+
+<p align="center"><strong>A little archaeology for your Claude chats. 🪦📜</strong><br>
+Bring your conversations and Memory back to the page — no shovel required.</p>
+
+<p align="center"><a href="https://claudeexport.duckdns.org/">Try the online tool</a> · <a href="README.zh-CN.md">简体中文</a></p>
+
 
 **Online tool:** [claudeexport.duckdns.org](https://claudeexport.duckdns.org/) — files are uploaded to the server for conversion (20 MB maximum). For local-only processing, run the application from source as described below.
 
-Convert conversations and Memory present in an official Claude data export into Markdown or searchable PDF, on your own computer. Available for Windows, macOS, and Linux; the interface supports English and Simplified Chinese. This independent project is not affiliated with Anthropic.
+Convert conversations and Memory present in an official Claude data export into Markdown or searchable PDF, on your own computer. Available for Windows, macOS, and Linux; the interface supports English and Simplified Chinese. This independent project is not affiliated with Anthropic. Your export is the treasure map: only content actually included in it can be recovered.
 
 ## Run from source
 
@@ -43,3 +49,5 @@ Distributed under the MIT license. Claude is a trademark of its respective owner
 The interface bundles Source Han Serif and JetBrains Mono under the SIL Open Font License; the respective license texts are in `web/fonts/`. Georgia is used when installed on the viewer's system and is not redistributed by this project.
 
 The PDF renderer embeds Noto Serif SC (a static instance of the Google Fonts family) under the SIL Open Font License; see `pdf_fonts/OFL.txt`.
+
+Claude icon adapted from [Simple Icons](https://github.com/simple-icons/simple-icons/blob/develop/icons/claude.svg); see its [license and trademark disclaimer](https://github.com/simple-icons/simple-icons/blob/develop/DISCLAIMER.md). Claude is a trademark of its respective owner.
