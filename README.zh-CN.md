@@ -23,6 +23,15 @@
 
 > 使用随附源码时首次安装依赖需要网络。制作好独立发行包后，运行该发行包不需要 Python 或联网。
 
+## 如何拿到 Claude 导出文件
+
+1. 在 Claude 网页版进入 **Settings（设置）→ Privacy（隐私）→ Export data（导出数据）**，提交导出请求。
+2. 收到邮件后，点击 **Download Data（下载数据）**或邮件中的下载链接，按提示登录 Claude。链接在发送后 24 小时失效；过期后可以重新申请。
+3. 如果下载页面按类别列出文件，选择 conversations（对话）下载；如有单独的 memories（记忆），也请下载。两者可分别在本工具中转换；ZIP 和 JSON 均可使用，ZIP 不必提前解压。
+4. 在本工具中选择下载的 ZIP 或 JSON，再选择会话并导出 Markdown 或 PDF。请保管好邮件链接，无需上传邮件本身。
+
+在线版会上传文件至服务器转换（最大 20 MB）；本地版在设备上处理（最大 200 MB）。步骤参考 [Claude 官方说明](https://support.anthropic.com/en/articles/9450526-how-can-i-export-my-claude-data)和 [Claude Export Viewer](https://github.com/aiaifei/claude-export-viewer)。
+
 ## 使用
 
 1. 从 Claude 官方导出文件中选择聊天或 Memory 的 ZIP 或 JSON。也支持包含这些 ZIP 的外层 ZIP；每个 Memory 文件作为独立条目选择。

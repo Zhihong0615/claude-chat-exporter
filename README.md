@@ -22,6 +22,15 @@ Install Python 3.10 or later. The first launch creates a virtual environment and
 
 Keep the terminal open and use the address it prints if your browser does not open automatically. To stop, use the button in the interface or close the terminal.
 
+## Get your Claude export
+
+1. In Claude on the web, open **Settings → Privacy → Export data** and request an export.
+2. Open the export email when it arrives and choose **Download Data** or its download link. Sign in to Claude if prompted. The link expires 24 hours after delivery; if it expires, request a new export.
+3. If the download page lists categories, save the conversations file and, if available, the separate memories file. Select and convert each file separately; ZIP and JSON both work. There is no need to unzip first.
+4. Choose the downloaded ZIP or JSON in this app, select the items you want, and export Markdown or PDF. Keep the email link private; the app does not need the email itself.
+
+The online tool uploads files to the server for conversion (20 MB maximum). The local app processes them on your device (200 MB maximum). See [Anthropic’s export instructions](https://support.anthropic.com/en/articles/9450526-how-can-i-export-my-claude-data). The step-by-step flow was inspired by [Claude Export Viewer](https://github.com/aiaifei/claude-export-viewer).
+
 ## Export
 
 Select an official chat or Memory ZIP, an outer ZIP containing those ZIPs, or the JSON itself. Each exported Memory file appears as a separately selectable item. Select conversations, Markdown or PDF, with a clean reading copy selected by default. Enable details to include thinking, tool calls, attachment metadata and other available technical content. The counts and conversation list update with this option. A single conversation downloads directly; multiple conversations are packaged as a ZIP. Inputs are limited to 200 MB and expanded data to 300 MB.

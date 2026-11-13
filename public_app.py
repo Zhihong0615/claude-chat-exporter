@@ -5,6 +5,7 @@ Only the proxy should be internet-facing. This process listens on loopback and
 keeps uploaded documents in process memory; it does not authenticate users.
 """
 import hmac
+import json
 import os
 import threading
 from urllib.parse import urlsplit
@@ -21,8 +22,12 @@ def configure_limits():
     exporter.MAX_FILES = 1000
 
 class PublicServer(app.Server):
+    # A restart must be able to bind while previous connections are in TIME_WAIT.
+    # On the Linux deployment, an active listener still prevents another bind.
+    allow_reuse_address = True
     def __init__(self, address, handler):
-        self.slots = threading.BoundedSemaphore(2)
+        self.slots = threading.BoundedSemaphore(8)
+        self.conversion_slots = threading.BoundedSemaphore(2)
         super().__init__(address, handler)
     def get_request(self):
         client, address = super().get_request()
@@ -57,10 +62,21 @@ class PublicHandler(app.Handler):
             return
         super().do_GET()
     def do_POST(self):
-        if urlsplit(self.path).path == '/api/shutdown':
+        path = urlsplit(self.path).path
+        if path == '/api/shutdown':
             self._json(404, {'error':'Not found'})
             return
-        super().do_POST()
+        if path not in ('/api/inspect', '/api/export') or not self._authorized():
+            super().do_POST()
+            return
+        if not self.server.conversion_slots.acquire(blocking=False):
+            body = json.dumps({'error': '服务器繁忙，请稍后重试。'}, ensure_ascii=False).encode('utf-8')
+            self._respond(503, body, 'application/json; charset=utf-8', {'Retry-After': '10'})
+            return
+        try:
+            super().do_POST()
+        finally:
+            self.server.conversion_slots.release()
 
 def main():
     origin = os.environ.get('CLAUDE_EXPORTER_PUBLIC_ORIGIN', '')

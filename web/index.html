@@ -23,6 +23,19 @@
     <header><div><div class="eyebrow" data-i18n="eyebrow">LOCAL EXPORTER</div><h1 data-i18n="title">Claude Chat Exporter</h1><p data-i18n="subtitle">Turn your official export into readable documents.</p><p class="tagline" data-i18n="tagline">Locked out, lost touch, or just saving a copy? Dig through your Claude export and bring your conversations and memories back.</p></div><div class="header-actions"><label class="language"><span class="sr-only" data-i18n="language">Language</span><select id="language"><option value="en">English</option><option value="zh">简体中文</option></select></label><div class="privacy"><span></span> <span data-i18n="local">Checking privacy settings…</span></div></div></header>
     <main>
       <section class="panel upload"><div class="section-head"><div><div class="step">01</div><h2 data-i18n="choose">Choose an export</h2></div><p data-i18n="support">Chat ZIP or conversations.json</p></div>
+        <details class="export-guide">
+          <summary data-i18n="guideTitle">How do I get my Claude export?</summary>
+          <div class="guide-content">
+            <ol>
+              <li><strong data-i18n="guideRequestTitle">Request an export</strong><p data-i18n="guideRequest">On the Claude website, open Settings → Privacy → Export data and submit the request.</p></li>
+              <li><strong data-i18n="guideEmailTitle">Open the email</strong><p data-i18n="guideEmail">When the export is ready, open Claude’s email and follow the download link. Sign in to Claude if prompted.</p></li>
+              <li><strong data-i18n="guideDownloadTitle">Download your files</strong><p data-i18n="guideDownload">Save the conversation ZIP to your device. If Memory is provided separately, download its ZIP too; convert each file here in turn. A conversations.json file also works.</p></li>
+              <li><strong data-i18n="guideConvertTitle">Choose a file below</strong><p data-i18n="guideConvert">Choose the downloaded ZIP or JSON below, select conversations, and export as Markdown or PDF. You do not need to unzip it first.</p></li>
+            </ol>
+            <p class="guide-note" data-i18n="guideExpiry">The email link expires after 24 hours; request a new export if it expires. Do not share the link or upload the email itself.</p>
+            <a href="https://support.anthropic.com/en/articles/9450526-how-can-i-export-my-claude-data" target="_blank" rel="noopener noreferrer" data-i18n="guideOfficial">Official export instructions ↗</a>
+          </div>
+        </details>
         <label class="drop" id="drop"><input id="file" type="file" accept=".zip,.json,application/zip,application/json"><span class="upload-icon">↑</span><strong data-i18n="drop">Click to choose a file, or drop it here</strong><span id="filename">Preparing export…</span></label>
         <div id="file-status" class="status" role="status" aria-live="polite"></div>
       </section>

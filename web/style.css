@@ -20,3 +20,11 @@ header .tagline{max-width:610px;margin-top:13px;color:#71645a;line-height:1.6;fo
 :root{font-family:Georgia,'Source Han Serif CN','Noto Serif CJK SC',serif}
 h1,h2,.disclaimer h2{font-family:Georgia,'Source Han Serif CN','Noto Serif CJK SC',serif}
 .eyebrow,.step,.disclaimer-label,.chat .meta,#selected-count{font-family:'JetBrains Mono','Source Han Serif CN',monospace}
+
+/* A compact guide stays close to the upload control without crowding it. */
+.export-guide{margin:-2px 0 18px;border:1px solid #eadfd4;border-radius:10px;background:#fdf9f5;color:#554a40}
+.export-guide summary{padding:13px 16px;cursor:pointer;font-size:14px;font-weight:700;color:#a85a3e}
+.export-guide summary:focus-visible{outline:2px solid #c78367;outline-offset:2px}
+.guide-content{padding:0 18px 17px;font-size:14px;line-height:1.65}
+.guide-content ol{margin:0;padding-left:22px}.guide-content li+li{margin-top:12px}.guide-content li strong{font-weight:700}.guide-content li p{margin:3px 0 0;color:#6c6157}
+.guide-note{border-top:1px solid #eee3d8;padding-top:12px;margin:14px 0 7px;color:#6c6157}.guide-content a{color:#a2553c;text-underline-offset:3px}
