@@ -50,14 +50,19 @@ class Handler(BaseHTTPRequestHandler):
         path=urlsplit(self.path).path
         names={'/':'index.html', '/app.js':'app.js', '/style.css':'style.css',
                '/fonts/source-han-serif-cn-vf.woff2':'fonts/source-han-serif-cn-vf.woff2',
-               '/fonts/jetbrains-mono-vf.woff2':'fonts/jetbrains-mono-vf.woff2'}
+               '/fonts/jetbrains-mono-vf.woff2':'fonts/jetbrains-mono-vf.woff2',
+               '/guide-images/export-step1.jpg':'guide-images/export-step1.jpg',
+               '/guide-images/export-step2.jpg':'guide-images/export-step2.jpg',
+               '/guide-images/export-step3.png':'guide-images/export-step3.png'}
         if path not in names:
             self._json(404,{'error':'页面不存在。'});return
         item=WEB / names[path]
         if not item.is_file():
             self._json(404,{'error':'界面文件缺失。'});return
         mime=mimetypes.guess_type(str(item))[0] or 'application/octet-stream'
-        if path.startswith('/fonts/'):
+        if path.startswith('/guide-images/'):
+            self._respond(200,item.read_bytes(),mime,{'Cache-Control':'public, max-age=86400'})
+        elif path.startswith('/fonts/'):
             self._respond(200,item.read_bytes(),'font/woff2',{'Cache-Control':'public, max-age=86400'})
         else:
             self._respond(200,item.read_bytes(),mime+'; charset=utf-8')

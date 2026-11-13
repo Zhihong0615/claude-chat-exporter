@@ -27,13 +27,21 @@
           <summary data-i18n="guideTitle">How do I get my Claude export?</summary>
           <div class="guide-content">
             <ol>
-              <li><strong data-i18n="guideRequestTitle">Request an export</strong><p data-i18n="guideRequest">On the Claude website, open Settings → Privacy → Export data and submit the request.</p></li>
-              <li><strong data-i18n="guideEmailTitle">Open the email</strong><p data-i18n="guideEmail">When the export is ready, open Claude’s email and follow the download link. Sign in to Claude if prompted.</p></li>
+              <li><strong data-i18n="guideRequestTitle">Request an export</strong><p data-i18n="guideRequest">On the Claude website, open Settings → Privacy → Export data and submit the request.</p>
+                <div class="guide-figures">
+                  <figure><a href="/guide-images/export-step1.jpg" target="_blank" rel="noopener"><img src="/guide-images/export-step1.jpg" loading="lazy" alt="Claude Privacy settings with Export data highlighted" data-i18n-alt="guideImage1Alt"></a><figcaption data-i18n="guideImage1Caption">Open Privacy and choose Export data.</figcaption></figure>
+                  <figure><a href="/guide-images/export-step2.jpg" target="_blank" rel="noopener"><img src="/guide-images/export-step2.jpg" loading="lazy" alt="Claude export options and Export button" data-i18n-alt="guideImage2Alt"></a><figcaption data-i18n="guideImage2Caption">Choose the range and submit the export.</figcaption></figure>
+                </div>
+              </li>
+              <li><strong data-i18n="guideEmailTitle">Open the email</strong><p data-i18n="guideEmail">When the export is ready, open Claude’s email and follow the download link. Sign in to Claude if prompted.</p>
+                <div class="guide-figures"><figure><a href="/guide-images/export-step3.png" target="_blank" rel="noopener"><img src="/guide-images/export-step3.png" loading="lazy" alt="Example export email with Download Data button" data-i18n-alt="guideImage3Alt"></a><figcaption data-i18n="guideImage3Caption">In the email, choose Download Data.</figcaption></figure></div>
+              </li>
               <li><strong data-i18n="guideDownloadTitle">Download your files</strong><p data-i18n="guideDownload">Save the conversation ZIP to your device. If Memory is provided separately, download its ZIP too; convert each file here in turn. A conversations.json file also works.</p></li>
               <li><strong data-i18n="guideConvertTitle">Choose a file below</strong><p data-i18n="guideConvert">Choose the downloaded ZIP or JSON below, select conversations, and export as Markdown or PDF. You do not need to unzip it first.</p></li>
             </ol>
             <p class="guide-note" data-i18n="guideExpiry">The email link expires after 24 hours; request a new export if it expires. Do not share the link or upload the email itself.</p>
             <a href="https://support.anthropic.com/en/articles/9450526-how-can-i-export-my-claude-data" target="_blank" rel="noopener noreferrer" data-i18n="guideOfficial">Official export instructions ↗</a>
+            <p class="guide-credit"><span data-i18n="guideImagesCredit">Screenshots adapted from</span> <a href="https://github.com/aiaifei/claude-export-viewer" target="_blank" rel="noopener noreferrer">Claude Export Viewer</a><span data-i18n="guideImagesNote">. The interface may change over time; click an image to enlarge.</span></p>
           </div>
         </details>
         <label class="drop" id="drop"><input id="file" type="file" accept=".zip,.json,application/zip,application/json"><span class="upload-icon">↑</span><strong data-i18n="drop">Click to choose a file, or drop it here</strong><span id="filename">Preparing export…</span></label>

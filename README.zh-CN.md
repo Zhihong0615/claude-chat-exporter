@@ -26,11 +26,21 @@
 ## 如何拿到 Claude 导出文件
 
 1. 在 Claude 网页版进入 **Settings（设置）→ Privacy（隐私）→ Export data（导出数据）**，提交导出请求。
+
+   <img src="web/guide-images/export-step1.jpg" alt="隐私设置中标出的导出数据入口" width="560">
+
+   选择导出范围，然后点击 **Export**：
+
+   <img src="web/guide-images/export-step2.jpg" alt="导出数据选项和 Export 按钮" width="560">
+
 2. 收到邮件后，点击 **Download Data（下载数据）**或邮件中的下载链接，按提示登录 Claude。链接在发送后 24 小时失效；过期后可以重新申请。
+
+   <img src="web/guide-images/export-step3.png" alt="带有下载数据按钮的导出邮件示例" width="560">
+
 3. 如果下载页面按类别列出文件，选择 conversations（对话）下载；如有单独的 memories（记忆），也请下载。两者可分别在本工具中转换；ZIP 和 JSON 均可使用，ZIP 不必提前解压。
 4. 在本工具中选择下载的 ZIP 或 JSON，再选择会话并导出 Markdown 或 PDF。请保管好邮件链接，无需上传邮件本身。
 
-在线版会上传文件至服务器转换（最大 20 MB）；本地版在设备上处理（最大 200 MB）。步骤参考 [Claude 官方说明](https://support.anthropic.com/en/articles/9450526-how-can-i-export-my-claude-data)和 [Claude Export Viewer](https://github.com/aiaifei/claude-export-viewer)。
+在线版会上传文件至服务器转换（最大 20 MB）；本地版在设备上处理（最大 200 MB）。步骤参考 [Claude 官方说明](https://support.anthropic.com/en/articles/9450526-how-can-i-export-my-claude-data)。截图取自或改编自 [Claude Export Viewer](https://github.com/aiaifei/claude-export-viewer)（[上游 MIT 许可](web/guide-images/UPSTREAM-LICENSE.txt)）；邮件图片依据原图重制，未包含地址信息，界面可能随时间变化。
 
 ## 使用
 

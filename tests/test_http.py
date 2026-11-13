@@ -46,6 +46,17 @@ class HttpTests(unittest.TestCase):
             self.assertIn('max-age=', headers['Cache-Control'])
             self.assertTrue(body.startswith(b'wOF2'))
 
+    def test_export_guide_images_are_available_offline(self):
+        for filename, mime, signature in (
+            ('export-step1.jpg', 'image/jpeg', b'\xff\xd8\xff'),
+            ('export-step2.jpg', 'image/jpeg', b'\xff\xd8\xff'),
+            ('export-step3.png', 'image/png', b'\x89PNG\r\n\x1a\n'),
+        ):
+            code, headers, body = self.request('GET', '/guide-images/' + filename)
+            self.assertEqual(code, 200)
+            self.assertEqual(headers['Content-Type'], mime)
+            self.assertTrue(body.startswith(signature))
+
     def test_origin_and_token_required(self):
         good = {'Origin': self.origin, 'X-Session-Token': app.TOKEN}
         self.assertEqual(self.request('POST', '/api/inspect', SAMPLE, {})[0], 403)

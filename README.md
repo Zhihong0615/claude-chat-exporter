@@ -25,11 +25,21 @@ Keep the terminal open and use the address it prints if your browser does not op
 ## Get your Claude export
 
 1. In Claude on the web, open **Settings → Privacy → Export data** and request an export.
+
+   <img src="web/guide-images/export-step1.jpg" alt="Privacy settings with Export data highlighted" width="560">
+
+   Choose the range and submit the export:
+
+   <img src="web/guide-images/export-step2.jpg" alt="Export data options and Export button" width="560">
+
 2. Open the export email when it arrives and choose **Download Data** or its download link. Sign in to Claude if prompted. The link expires 24 hours after delivery; if it expires, request a new export.
+
+   <img src="web/guide-images/export-step3.png" alt="Example export email with Download Data button" width="560">
+
 3. If the download page lists categories, save the conversations file and, if available, the separate memories file. Select and convert each file separately; ZIP and JSON both work. There is no need to unzip first.
 4. Choose the downloaded ZIP or JSON in this app, select the items you want, and export Markdown or PDF. Keep the email link private; the app does not need the email itself.
 
-The online tool uploads files to the server for conversion (20 MB maximum). The local app processes them on your device (200 MB maximum). See [Anthropic’s export instructions](https://support.anthropic.com/en/articles/9450526-how-can-i-export-my-claude-data). The step-by-step flow was inspired by [Claude Export Viewer](https://github.com/aiaifei/claude-export-viewer).
+The online tool uploads files to the server for conversion (20 MB maximum). The local app processes them on your device (200 MB maximum). See [Anthropic’s export instructions](https://support.anthropic.com/en/articles/9450526-how-can-i-export-my-claude-data). Screenshots are adapted from [Claude Export Viewer](https://github.com/aiaifei/claude-export-viewer) (see [upstream MIT license](web/guide-images/UPSTREAM-LICENSE.txt)); the email illustration was recreated from the original without address details. The interface may change over time.
 
 ## Export
 

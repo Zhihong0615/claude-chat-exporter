@@ -28,3 +28,9 @@ h1,h2,.disclaimer h2{font-family:Georgia,'Source Han Serif CN','Noto Serif CJK S
 .guide-content{padding:0 18px 17px;font-size:14px;line-height:1.65}
 .guide-content ol{margin:0;padding-left:22px}.guide-content li+li{margin-top:12px}.guide-content li strong{font-weight:700}.guide-content li p{margin:3px 0 0;color:#6c6157}
 .guide-note{border-top:1px solid #eee3d8;padding-top:12px;margin:14px 0 7px;color:#6c6157}.guide-content a{color:#a2553c;text-underline-offset:3px}
+
+.guide-figures{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;max-width:720px;margin:12px 0 16px}
+.guide-figures figure{margin:0;min-width:0}.guide-figures img{display:block;width:100%;height:auto;border:1px solid #e5d9cf;border-radius:8px;background:white}
+.guide-figures a:focus-visible{outline:2px solid #c78367;outline-offset:3px}.guide-figures figcaption{margin-top:5px;color:#766a5e;font-size:12px;line-height:1.5}
+.guide-credit{margin:8px 0 0;color:#807368;font-size:12px}
+@media(max-width:650px){.guide-figures{grid-template-columns:1fr}}
