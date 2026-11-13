@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude Chat Exporter</title><link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="app">
+    <header><div><div class="eyebrow">LOCAL EXPORTER</div><h1 data-i18n="title">Claude Chat Exporter</h1><p data-i18n="subtitle">Turn your official export into readable documents.</p></div><div class="header-actions"><label class="language"><span class="sr-only" data-i18n="language">Language</span><select id="language"><option value="en">English</option><option value="zh">简体中文</option></select></label><div class="privacy"><span></span> <span data-i18n="local">Processed locally</span></div></div></header>
+    <main>
+      <section class="panel upload"><div class="section-head"><div><div class="step">01</div><h2 data-i18n="choose">Choose an export</h2></div><p data-i18n="support">Chat ZIP or conversations.json</p></div>
+        <label class="drop" id="drop"><input id="file" type="file" accept=".zip,.json,application/zip,application/json"><span class="upload-icon">↑</span><strong data-i18n="drop">Click to choose a file, or drop it here</strong><span id="filename">Processed on this device · 200 MB max</span></label>
+        <div id="file-status" class="status" role="status" aria-live="polite"></div>
+      </section>
+      <section id="selection" class="panel hidden"><div class="section-head"><div><div class="step">02</div><h2 data-i18n="select">Select conversations</h2></div><p id="stats"></p></div>
+        <div id="warning" class="warning hidden"></div><div class="toolbar"><label class="check"><input id="select-all" type="checkbox" checked><span data-i18n="all">Select all</span></label><input id="search" type="search" data-i18n-placeholder="search" placeholder="Search titles" aria-label="Search titles"><span id="selected-count"></span></div><div id="list" class="list"></div>
+      </section>
+      <section id="options" class="panel hidden"><div class="section-head"><div><div class="step">03</div><h2 data-i18n="format">Choose a format</h2></div></div>
+        <div class="formats"><label class="format"><input type="radio" name="format" value="md" checked><span><strong>Markdown</strong><small data-i18n="mdDesc">Editable and easy to archive</small></span></label><label class="format"><input type="radio" name="format" value="pdf"><span><strong>PDF</strong><small data-i18n="pdfDesc">Ready to read and share</small></span></label></div>
+        <label class="details"><input id="details" type="checkbox" checked><span><span data-i18n="details">Include tool calls, results and other exported content</span><small data-i18n="detailsHelp">Attachment metadata is included when available; missing files cannot be recovered.</small></span></label>
+        <div class="actions"><div><strong id="export-count">0 conversations selected</strong><small data-i18n="zipHelp">Multiple conversations are downloaded as a ZIP</small></div><button id="export" type="button"><span data-i18n="export">Export documents</span> <span>↓</span></button></div>
+        <div id="export-status" class="status" role="status" aria-live="polite"></div>
+      </section>
+    </main>
+    <footer><span data-i18n="footer">No sign-in · No chat uploads · Original file unchanged</span><button id="stop" type="button" data-i18n="stop">Stop local service</button></footer>
+  </div><script src="/app.js"></script>
+</body></html>
