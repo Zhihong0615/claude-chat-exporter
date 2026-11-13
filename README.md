@@ -2,6 +2,8 @@
 
 [简体中文](README.zh-CN.md)
 
+**Online tool:** [claudeexport.duckdns.org](https://claudeexport.duckdns.org/) — files are uploaded to the server for conversion (20 MB maximum). For local-only processing, run the application from source as described below.
+
 Convert conversations and Memory present in an official Claude data export into Markdown or searchable PDF, on your own computer. Available for Windows, macOS, and Linux; the interface supports English and Simplified Chinese. This independent project is not affiliated with Anthropic.
 
 ## Run from source

@@ -1,5 +1,7 @@
 # Claude 聊天导出工具
 
+**在线使用：**[claudeexport.duckdns.org](https://claudeexport.duckdns.org/) —— 文件会上传到服务器进行转换，最大 20 MB。如需仅在本机处理，请按照下方说明运行源码。
+
 在本机把 Claude 官方数据导出中的聊天记录和 Memory 转成 Markdown 或 PDF。本工具仅处理官方数据导出中已有内容，不读取桌面应用的本地会话或其他目录。支持 Windows、macOS 和 Linux，界面在浏览器中打开；聊天文件只传给本机运行的服务，不发送到外网。
 
 ## 运行
