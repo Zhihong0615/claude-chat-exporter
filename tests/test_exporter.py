@@ -91,4 +91,31 @@ class ExporterTests(unittest.TestCase):
         data=to_pdf(to_markdown(EXAMPLE[0]),'示例')
         self.assertTrue(data.startswith(b'%PDF-'))
         self.assertIn(b'%%EOF',data[-40:])
+
+    def test_clean_mode_keeps_body_and_preserves_unrecognised_difference(self):
+        placeholder='```\nThis block is not supported on your current device yet.\n```'
+        row={'chat_messages':[
+            {'sender':'assistant','text':placeholder+'\n\n正文', 'content':[{'type':'tool_use','input':{'q':'hidden'}},{'type':'text','text':'正文'}]},
+            {'sender':'human','text':'好'},
+            {'sender':'assistant','text':'Different original text', 'content':[{'type':'text','text':'Block text'}]},
+            {'sender':'human','attachments':[{'file_name':'only.pdf'}]},
+            {'sender':'human','text':''},
+        ]}
+        md=to_markdown(row,False,'en')
+        self.assertEqual(md.count('正文'),1)
+        self.assertNotIn('not supported',md)
+        self.assertNotIn('only.pdf',md)
+        for text in ('好', 'Different original text', 'Block text'): self.assertIn(text,md)
+        self.assertIn('only.pdf',to_markdown(row,True,'en'))
+        result=describe([row,{'chat_messages':[{'attachments':[{'file_name':'x'}]}]}],False)
+        self.assertEqual((result['total_messages'],result['excluded_messages'],result['excluded_conversations']),(3,3,1))
+        self.assertEqual(describe([row],True)['total_messages'],4)
+
+    def test_pdf_renders_complex_and_long_content(self):
+        md='# A 中英文 title\n\n## Claude\n\n**bold** and [link](https://example.org)\n\n'
+        md+='- First item\n- 第二项\n\n| Column | 列 |\n| --- | --- |\n| alpha | 数据 |\n\n'
+        md+='```python\n' + ('    print("中文")\n' * 250) + '```\n\nAfter the code.'
+        data=to_pdf(md,'Example')
+        self.assertTrue(data.startswith(b'%PDF-'))
+        self.assertIn(b'%%EOF',data[-40:])
 if __name__=='__main__':unittest.main()

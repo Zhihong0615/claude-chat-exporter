@@ -18,9 +18,9 @@ Keep the terminal open and use the address it prints if your browser does not op
 
 ## Export
 
-Select an official chat or Memory ZIP, an outer ZIP containing those ZIPs, or the JSON itself. Each exported Memory file appears as a separately selectable item. Select conversations, Markdown or PDF, and optionally exclude tool and other detailed content. A single conversation downloads directly; multiple conversations are packaged as a ZIP. Inputs are limited to 200 MB and expanded data to 300 MB.
+Select an official chat or Memory ZIP, an outer ZIP containing those ZIPs, or the JSON itself. Each exported Memory file appears as a separately selectable item. Select conversations, Markdown or PDF, with a clean reading copy selected by default. Enable details to include thinking, tool calls, attachment metadata and other available technical content. The counts and conversation list update with this option. A single conversation downloads directly; multiple conversations are packaged as a ZIP. Inputs are limited to 200 MB and expanded data to 300 MB.
 
-Only content actually present in the input can be converted, including any Memory content present in a Memory export. Empty messages and conversations are skipped and counted. The tool cannot recover missing bodies or attachment files; available attachment metadata may be included. Unknown content types are preserved as structured text when details are enabled. PDF supports searchable Chinese text, but complex Markdown, formulas, emoji, and images may render differently. Original timestamp strings are retained without conversion.
+Only content actually present in the input can be converted, including any Memory content present in a Memory export. Messages and conversations without content for the selected mode are skipped and counted; short messages are retained. The reading copy uses body text blocks when available and removes known unsupported-tool placeholders; an unrecognised difference in the original text field is kept and labelled instead of discarded. The tool cannot recover missing bodies or attachment files; available attachment metadata may be included. Unknown content types are preserved as structured text when details are enabled. PDF formats common headings, lists, tables and code blocks and supports searchable Chinese text. Complex Markdown, formulas, emoji, and images may render differently; images are not fetched from the internet. Original timestamp strings are retained without conversion.
 
 ## Privacy and security
 
@@ -41,3 +41,5 @@ python app.py
 Distributed under the MIT license. Claude is a trademark of its respective owner.
 
 The interface bundles Source Han Serif and JetBrains Mono under the SIL Open Font License; the respective license texts are in `web/fonts/`. Georgia is used when installed on the viewer's system and is not redistributed by this project.
+
+The PDF renderer embeds Noto Serif SC (a static instance of the Google Fonts family) under the SIL Open Font License; see `pdf_fonts/OFL.txt`.

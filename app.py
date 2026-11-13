@@ -77,7 +77,9 @@ class Handler(BaseHTTPRequestHandler):
             if len(payload)!=n: raise ExportError('文件传输不完整。')
             chats=load_export(payload)
             if path=='/api/inspect':
-                self._json(200,describe(chats));return
+                result=describe(chats, False)
+                result['with_details']=describe(chats, True)
+                self._json(200,result);return
             try:
                 indices=json.loads(self.headers.get('X-Selected','[]'))
             except json.JSONDecodeError as exc: raise ExportError('会话选择无效。') from exc

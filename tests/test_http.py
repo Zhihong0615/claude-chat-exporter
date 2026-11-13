@@ -63,5 +63,20 @@ class HttpTests(unittest.TestCase):
             self.assertIn(marker, body.decode())
             self.assertIn('Hello 世界', body.decode())
 
+    def test_inspection_matches_both_export_modes(self):
+        sample = json.dumps([
+            {'name':'Body', 'chat_messages':[{'sender':'human','text':'Hello'}, {'files':[{'file_name':'a.pdf'}]}]},
+            {'name':'Metadata only', 'chat_messages':[{'attachments':[{'file_name':'b.pdf'}]}]},
+        ]).encode()
+        headers = {'Origin':self.origin, 'X-Session-Token':app.TOKEN}
+        code, _, body = self.request('POST', '/api/inspect', sample, headers)
+        self.assertEqual(code, 200)
+        result = json.loads(body)
+        self.assertEqual((result['total_messages'], result['excluded_conversations']), (1, 1))
+        self.assertEqual((result['with_details']['total_messages'], result['with_details']['excluded_conversations']), (3, 0))
+        for details, indices in [('0','[0]'), ('1','[0,1]')]:
+            code, _, _ = self.request('POST','/api/export',sample,{**headers,'X-Selected':indices,'X-Details':details})
+            self.assertEqual(code, 200)
+
 if __name__ == '__main__':
     unittest.main()

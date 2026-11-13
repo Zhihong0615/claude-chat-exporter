@@ -139,6 +139,23 @@ def _blocks(message: dict, include_details: bool = True, lang: str = 'zh') -> tu
     normal = [str(b.get('text', '')) for b in blocks if isinstance(b, dict) and b.get('type') == 'text' and isinstance(b.get('text'), str) and b.get('text').strip()]
     fallback = message.get('text') if isinstance(message.get('text'), str) else ''
     has_text = bool(normal or fallback.strip())
+    # The text blocks are the conversation body. The parallel text field can
+    # contain tool-call placeholders mixed into the same body; keep it only in
+    # the detailed export when it differs, so the reading version is not noisy.
+    if not include_details:
+        if not normal:
+            return ([fallback.strip()] if fallback.strip() else []), has_text
+        clean = [text.strip() for text in normal]
+        remainder = fallback.strip()
+        if remainder:
+            for text in normal:
+                remainder = remainder.replace(text.strip(), '', 1)
+            remainder = remainder.replace('```\nThis block is not supported on your current device yet.\n```', '').strip()
+            if remainder:
+                # An unrecognised difference could be real body text. Preserve the
+                # complete field and label it rather than guessing it is noise.
+                clean.append('**' + L['original'] + '**\n\n' + fallback.strip())
+        return clean, has_text
     used_text = False
     for b in blocks:
         if not isinstance(b, dict):
@@ -187,12 +204,12 @@ def _exportable(message: dict, include_details: bool = True) -> bool:
         if include_details and b.get('type') != 'text' and any(v for k, v in b.items() if k not in ('type', 'name')): return True
     return False
 
-def describe(conversations: list[dict]) -> dict:
+def describe(conversations: list[dict], include_details: bool = True) -> dict:
     rows = []
     skipped_messages = 0
     for i, c in enumerate(conversations):
         ms = [m for m in c.get('chat_messages', []) if isinstance(m, dict)]
-        keep = sum(_exportable(m) for m in ms)
+        keep = sum(_exportable(m, include_details) for m in ms)
         skipped_messages += len(ms) - keep
         if not keep: continue
         rows.append({'index': i, 'name': str(c.get('name') or '未命名对话'), 'created_at': str(c.get('created_at') or ''), 'updated_at': str(c.get('updated_at') or ''), 'messages': keep, 'missing_text': len(ms) - keep})
@@ -228,40 +245,11 @@ def safe_name(value: str, index: int, lang: str = 'zh') -> str:
 
 def to_pdf(markdown: str, title: str) -> bytes:
     try:
-        from reportlab.pdfbase import pdfmetrics
-        from reportlab.pdfbase.cidfonts import UnicodeCIDFont
-        from reportlab.pdfgen import canvas
-        from reportlab.lib.pagesizes import A4
+        from pdf_renderer import render_pdf
     except ImportError as exc:
         raise ExportError('PDF 组件尚未安装。请按 README 安装依赖。') from exc
-    font='STSong-Light'
-    if font not in pdfmetrics.getRegisteredFontNames(): pdfmetrics.registerFont(UnicodeCIDFont(font))
-    output=io.BytesIO(); c=canvas.Canvas(output, pagesize=A4, pageCompression=1)
-    c.setTitle(title); width,height=A4; margin=48; y=height-margin; page=1
-    font_size=10.5; line_height=16; max_width=width-2*margin
-    def next_page():
-        nonlocal y,page
-        c.setFont(font,8); c.setFillGray(.5); c.drawRightString(width-margin,25,str(page)); c.showPage();page+=1;y=height-margin
-    def draw(line: str, size: float, color: tuple[float,float,float]):
-        nonlocal y
-        if y < margin: next_page()
-        c.setFillColorRGB(*color);c.setFont(font,size);c.drawString(margin,y,line);y-=line_height if size<=11 else 22
-    for raw in markdown.splitlines():
-        if raw.startswith('# '): size,color=15,(.05,.20,.35); line=raw[2:]
-        elif raw.startswith('## '): size,color=12,(.05,.20,.35); line=raw[3:]
-        elif raw == '---': size,color=font_size,(.7,.7,.7);line=''
-        else: size,color=font_size,(.10,.12,.16);line=raw.replace('\t','    ')
-        if not line: draw('',size,color);continue
-        buffer='';wid=0.0
-        for ch in line:
-            # Control characters are not printable in PDF text streams.
-            if ord(ch)<32: ch=' '
-            cw=pdfmetrics.stringWidth(ch,font,size)
-            if buffer and wid+cw>max_width:
-                draw(buffer,size,color);buffer='';wid=0.0
-            buffer+=ch;wid+=cw
-        if buffer: draw(buffer,size,color)
-    c.setFont(font,8);c.setFillGray(.5);c.drawRightString(width-margin,25,str(page));c.save();return output.getvalue()
+    return render_pdf(markdown, title)
+
 
 def make_output(conversations: list[dict], indices: list[int], fmt: str, include_details: bool = True, lang: str = 'zh') -> tuple[bytes,str,str]:
     if fmt not in ('md','pdf'): raise ExportError('请选择 Markdown 或 PDF。')
