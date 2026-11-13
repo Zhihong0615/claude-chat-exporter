@@ -5,6 +5,20 @@
   <title>Claude Chat Exporter</title><link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <dialog id="disclaimer" class="disclaimer" aria-labelledby="disclaimer-title" aria-describedby="disclaimer-intro">
+    <div class="disclaimer-head">
+      <div><div class="disclaimer-label" data-i18n="disclaimerLabel">PLEASE READ</div><h2 id="disclaimer-title" data-i18n="disclaimerTitle">Disclaimer &amp; privacy</h2></div>
+      <label class="language"><span class="sr-only" data-i18n="language">Language</span><select id="disclaimer-language"><option value="en">English</option><option value="zh">简体中文</option></select></label>
+    </div>
+    <p id="disclaimer-intro" data-i18n="disclaimerIntro">Please review how this tool handles your data before continuing.</p>
+    <div class="disclaimer-notice"><strong data-i18n="disclaimerPrivacyTitle">Privacy</strong><p data-i18n="disclaimerPrivacy">Your chat file is processed on this device.</p></div>
+    <ul>
+      <li data-i18n="disclaimerIndependent">This is an independent project and is not affiliated with Anthropic or Claude.</li>
+      <li data-i18n="disclaimerScope">Only content present in your export can be converted; missing messages and attachment files cannot be recovered. Check the output before relying on it.</li>
+      <li data-i18n="disclaimerResponsibility">The software is provided as is. You are responsible for safeguarding the files you export.</li>
+    </ul>
+    <button type="button" id="disclaimer-continue" class="disclaimer-continue" autofocus data-i18n="disclaimerContinue">I understand and continue</button>
+  </dialog>
   <div class="app">
     <header><div><div class="eyebrow" data-i18n="eyebrow">LOCAL EXPORTER</div><h1 data-i18n="title">Claude Chat Exporter</h1><p data-i18n="subtitle">Turn your official export into readable documents.</p></div><div class="header-actions"><label class="language"><span class="sr-only" data-i18n="language">Language</span><select id="language"><option value="en">English</option><option value="zh">简体中文</option></select></label><div class="privacy"><span></span> <span data-i18n="local">Processed locally</span></div></div></header>
     <main>
@@ -22,6 +36,6 @@
         <div id="export-status" class="status" role="status" aria-live="polite"></div>
       </section>
     </main>
-    <footer><a id="source-link" href="/source/" hidden>Source code / 源码</a><span data-i18n="footer">No sign-in · No chat uploads · Original file unchanged</span><button id="stop" type="button" data-i18n="stop">Stop local service</button></footer>
+    <footer><a id="source-link" href="/source/" hidden>Source code / 源码</a><span data-i18n="footer">No sign-in · No chat uploads · Original file unchanged</span><button id="disclaimer-reopen" type="button" data-i18n="disclaimerLink">Disclaimer</button><button id="stop" type="button" data-i18n="stop">Stop local service</button></footer>
   </div><script src="/app.js"></script>
 </body></html>
